@@ -1,0 +1,189 @@
+'Speed': 'Nopeus'
+'km/h': 'km/h'
+'Time': 'Aika'
+'s': 's'
+
+'Glances': 'Katseet'
+
+'Run the light': 'Aja punaista päin'
+'(Just this once)': '(Vain tämän kerran)'
+
+'Passed': 'Hyväksytty suoritus'
+'Passed!': 'Hyväksytty suoritus'
+
+'Oops!': 'Oho!'
+'You ran the red light!': 'Ajoit punaista päin!'
+'You ran the stop sign!': 'Et pysähtynyt ennen stop-merkkiä!'
+'You crashed!': 'Törmäys!'
+
+'%runTheLight.intro': """<p>Tästä eteenpäin sinun tulee noudattaa liikennevaloja,
+			mutta aja tämän kerran punaista päin, jotta tiedät mitä
+			siitä seuraa.</p>
+
+			<p>Paina ratin oikeanpuoleista punaista nappia, kun olet valmis.</p>
+			"""
+
+'%runTheLight.outro': """Tästä eteenpäin suoritus hylätään, jos ajat punaista päin."""
+
+'Close the gap': 'Ahdas pysäköinti'
+'%closeTheGap.intro': """Tässä tehtävässä tutustutaan auton ulottuvuuksiin. Aja mahdollisimman
+			lähelle edelläolevaa autoa, mutta älä kuitenkaan törmää. Kun olet niin lähellä
+			kuin tunnet törmäämättäsi pääsevän, sammuta auto painamalla ratin oikeanpuoleista
+			punaista nappia.
+			"""
+'%closeTheGap.outro': ({distance}) ->
+	"Pysäköit #{(distance*100).toFixed 1} senttimetrin päähän."
+
+'Throttle and brake': 'Kiihdytys ja jarrutus'
+'%throttleAndBrake.intro': """Tutustutaan auton ominaisuuksiin. Ylitä maaliviiva mahdollisimman lyhyessä ajassa,
+			mutta älä aja päin punaisia ja pysähdy ennen stop-merkkiä.
+			"""
+
+'%throttleAndBrake.outro': ({time}) -> "Aikasi oli <strong>#{time.toFixed 2}</strong> sekuntia."
+
+'Speed control': 'Nopeuden hallinta'
+'%speedControl.intro':  """
+	<p>Aja niin nopeasti kuin pystyt, mutta noudattaen nopeusrajoituksia.
+	Ylinopeuden ajamisesta kerääntyy aikasakkoa.
+	"""
+'Penalty': 'Aikasakko'
+'Speed limit': 'Nopeusrajoitus'
+
+'%speedControl.outro': ({time, timePenalty}) -> """
+	<p>Ajoit radan #{time.toFixed 2} sekunnissa, mihin lisätään
+	#{timePenalty.toFixed 2} sekuntia aikasakkoa ylinopeudesta.
+
+	<p>Kokonaisaikasi oli <strong>#{(timePenalty + time).toFixed 2}</strong> sekuntia.
+	"""
+
+'%blinderIntro': """
+	<p>Tässä tehtävässä mitataan myös ennakointikykyäsi laskemalla, kuinka usein
+	joudut katsomaan tietä. Tie tulee hetkeksi näkyviin, kun painat vasemmanpuoleista
+	liipasinta. Yritä suorittaa tehtävä mahdollisimman hyvin, mutta käyttämällä mahdollisimman
+	vähän katseita.
+	"""
+
+'Anticipatory speed control': 'Ennakointi nopeudenhallinnassa'
+
+'%forcedBlinderIntro': """
+	<p>Tässä tehtävässä mitataan myös kykyäsi toimia häirinnän alaisena. Tienäkymä peittyy
+	hetkittäin.
+	"""
+
+'%blindSpeedControl.intro': -> """
+	<p>#{@ '%speedControl.intro'}
+	#{@ '%blinderIntro'}
+	"""
+
+'Supermiler': 'Taloudellinen ajo'
+
+
+'%followInTraffic.intro': """
+	<p>Aja siten, että polttoaineenkulutuksesi on mahdollisimman pieni.</p>
+
+	<p>Pyri ajotyyliin, joka tasapainottaa seuraavat tekijät:</p>
+	<ul>
+	<li>Edelläolevaa lähellä ajaminen vähentää kulutusta ilmanvastuksen
+	vähenemisen ansiosta.
+	<li>Jarruttaminen lisää kokonaiskulutusta, koska joudut kiihdyttämään
+	menetetyn nopeuden takaisin.
+	<li>Auto käyttää jonkin verran polttoainetta myös muuhun kuin etenemiseen,
+	joten etenemisen kannattaa olla mahdollisimman ripeää.
+	</ul>
+
+	<p>Tässä tehtävässä ei ole nopeusrajoituksia.</p>
+	"""
+
+'Draft saving': 'Ilmanvastussäästö'
+'Average consumption': 'Keskikulutus'
+'Current consumption': 'Hetkellinen kulutus'
+
+'%followInTraffic.outro': ({consumption}) ->
+	"Kulutuksesi oli #{consumption.avgLitersPer100km!.toFixed 2} l/100km."
+
+'Anticipating supermiler': 'Taloudellinen ennakoiva ajo'
+
+'%blindFollowInTraffic.intro': -> """
+	<p>#{@ '%followInTraffic.intro'}
+	#{@ '%blinderIntro'}
+	"""
+
+'Distracted supermiler': 'Taloudellinen ajo ja rajattu näkyvyys'
+
+'%forcedBlindFollowInTraffic.intro': -> """
+	<p>#{@ '%followInTraffic.intro'}
+	#{@ '%forcedBlinderIntro'}
+	"""
+
+'Next': 'Seuraava'
+'Previous': 'Edellinen'
+'I wish to participate': 'Haluan osallistua kokeeseen'
+
+'Welcome to the experiment': 'Tervetuloa kokeeseen!'
+'%intro.introduction': """
+<p>Tämän kokeen tarkoituksena on tutkia autonkuljettajan nopeudensäätelyä,
+ennakointia ja tarkkaavaisuuden jakamista.
+
+<p>Koe koostuu useasta osatehtävästä,
+jotka esitellään kokeen edetessä. Koe kestää kokonaisuudessaan noin tunnin.
+Voit kysyä kokeenjohtajalta lisätietoa sinulle epäselvistä asioista milloin tahansa.
+
+<p>Kokeen vastuullisena tutkijana toimii prof. Heikki Summala ja tutkijoina
+Jami Pekkanen, Teemu Itkonen ja Otto Lappi.
+"""
+
+'Participation is voluntary': 'Osallistuminen on vapaaehtoista'
+'%intro.participantRights': """<p>Kokeeseen osallistuminen on vapaaehtoista.
+Voit halutessasi peruuttaa tai keskeyttää osallistumisesi tai kieltäytyä pyydetystä
+toiminnasta missä vaiheessa tahansa.
+"""
+
+'Collection and use of data': 'Tietojen keräys ja käyttö'
+"%intro.dataUse": """
+<p>Kokeessa kerätään tietoja suorituksestasi. Tietoja ja niistä saatuja
+tutkimustuloksia käytetään tieteelliseen raportointiin (esim. julkaisuihin)
+sellaisessa muodossa, joissa henkilöllisyyttäsi ei voi tunnistaa.
+"""
+'I accept the usage of my data': 'Hyväksyn tietojeni käytön'
+
+'Background information': 'Taustatiedot'
+'%intro.backgroundInfo': """
+<p>Seuraavaksi kysymme joitakin perustietoja sinusta.
+Jos et halua antaa kysymäämme tietoa, voit jättää kyseisen
+kentän tyhjäksi.
+"""
+
+'E-mail address': 'Sähköpostiosoite'
+'%intro.email': """Kysymme sähköpostiosoitettasi, koska saatamme pyytää sinulta lisätietoja
+tai osallistumista jatkokokeeseen. Sähköpostiosoitettasi ei luovuteta ulkopuolisille, eikä
+siihen lähetetä tähän kokeeseen liittymätöntä viestintää."""
+
+'Birth year': 'Syntymävuosi'
+
+'Gender': 'Sukupuoli'
+'Female': 'Nainen'
+'Male': 'Mies'
+
+'Driving license year': 'Kuljettajatutkinnon suoritus'
+'%intro.license': """Anna vuosi, jona olet saanut B-luokan ajo-oikeuden (henkilöauto).
+Jos sinulla ei ole kyseisen luokan ajo-oikeutta, jätä kenttä tyhjäksi. Tiedot löytyvät
+ajokortin kääntöpuolelta."""
+
+'Past year driving': 'Viimeisen vuoden ajaminen'
+"On average, how frequently have you driven during the <strong>past year</strong>.": """
+Mikä seuraavista vastaa parhaiten sitä, kuinka usein olet ajanut keskimäärin
+<strong>viimeisen vuoden aikana</strong>.
+"""
+
+'Most days': 'Useimpina päivinä'
+'Most weeks': 'Useimpina viikkoina'
+'Most months': 'Useimpina kuukausina'
+'Few times a year': 'Joitakin kertoja vuodessa'
+'Not at all': 'En lainkaan'
+
+'Lifetime driving': 'Ajohistoria'
+"On average, how frequently have you driven <strong>since you got your driver's license</strong>.": """Mikä seuraavista vastaa parhaiten sitä, kuinka usein olet ajanut keskimäärin
+<strong>ajokortin saatuasi</strong>."""
+
+'The experiment is done!': 'Koe on päättynyt'
+'%experimentOutro': 'Kiitos osallistumisestasi!'
