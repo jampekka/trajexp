@@ -1,0 +1,14 @@
+<div class="row visualization_widgets">
+	<div class="span6">
+		<h6>Skin conductance (raw)</h6>
+		<object type="x-trusas/widget"
+				width="100%"
+				window="trusas_sc_raw"
+				service="nexus"
+				command="tail --follow=name --retry %(service_out)s |
+					%(ROOT)s/transform.py &quot;fields(d, sc_left='E')&quot; &quot;apply(d, sc_left=lambda x: 1.0/x)&quot; |
+					%(ROOT)s/plot/signal_plotter.py -w trusas_sc_raw"
+				>
+		</object>
+	</div>
+</div>
