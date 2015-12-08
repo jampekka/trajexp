@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import json
 import os
 import sys
+import gsr
 
 def plotSession(directory):
     scr = []
@@ -30,9 +31,14 @@ def plotSession(directory):
     obj = np.rec.fromrecords(obj, names='trial,ts,ballPos,time,timeWarp,targetVisible')
     obj = obj[obj['trial'] > 1]
     #plt.plot(obj['ts'], np.abs(obj['ballPos']))
-    scr = scr[::60]
+    scr = scr[::16]
+    dt = np.mean(np.diff(scr[:,0]))
+    #dscr = np.diff(scr[:,1])/dt
+    #scr = scr[1:]
+    scr_phasic, baseline, kernel = gsr.deconv_baseline(scr[:,1], 1/dt)
+    #scr_phasic = scr[:,1]
     #plt.plot(scr[:,0][1:], np.diff(scr[:,1]))
-    plt.plot(scr[:,0], scr[:,1])
+    plt.plot(scr[:,0], scr_phasic)
     
     blinks = np.flatnonzero(np.diff(obj['targetVisible'].astype(np.int)) < 0)
     #jumps = obj['ts'][jumps]
@@ -45,27 +51,30 @@ def plotSession(directory):
     for t in jumptimes:
         plt.axvline(t, color='black', alpha=0.5)
     #plt.plot(obj['ts'][1:], np.diff(np.abs(obj['timeWarp'])))
+    plt.show()
     
     plt.figure()
-    dt = np.mean(np.diff(scr[:,0]))
-    dscr = np.diff(scr[:,1])/dt
-    scr = scr[1:]
-    front = int(5/dt)
-    back = int(10/dt)
+    
+    front = int(20/dt)
+    back = int(20/dt)
     trng = np.arange(-front, back)*dt
     nsamples = front + back
     spans = []
     for t in jumptimes:
         s = scr[:,0].searchsorted(t) - front
-        spans.append(dscr[s:(s+nsamples)])
+        spans.append(scr_phasic[s:(s+nsamples)])
     plt.plot(trng, np.mean(spans, axis=0), color='red', label='Jump')
     
-    spans = []
     pureblinks = blinks[~np.in1d(blinks, jumps)]
-    for t in blinktimes:
-        s = scr[:,0].searchsorted(t) - front
-        spans.append(dscr[s:(s+nsamples)])
-    plt.plot(trng, np.mean(spans, axis=0), color='black', label='Blink')
+    means = []
+    for i in range(1000):
+        spans = []
+        for t in np.random.choice(blinktimes, len(jumptimes)):
+            s = scr[:,0].searchsorted(t) - front
+            spans.append(scr_phasic[s:(s+nsamples)])
+        means.append(np.mean(spans, axis=0))
+
+    plt.plot(trng, np.mean(means, axis=0), color='black', label='Blink')
 
     plt.axvline(0)
     plt.xlabel("Time from event")
